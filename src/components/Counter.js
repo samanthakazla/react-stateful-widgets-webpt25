@@ -18,16 +18,16 @@ The other things can simply be _derived_ from the count itself.
 STEP 0:
   Start by studying the component below, and importing the state hook.
 
-STEP 1:
+STEP 1:DONE
   Using the state hook, create a 'count', 'setCount' pair.
   The 'count' state should be initialized to the number zero.
 
-STEP 2:
+STEP 2:DONE
   The 'style' object has the 'color' property hard-coded to "royalblue".
   What the value of 'color' should be instead is a ternary expression that goes like this:
   If count is even, then "royalblue", else "crimson".
 
-STEP 3:
+STEP 3:DONE
   We need to replace some hard-coded info in the JSX with expressions, interpolated inside curly brackets.
   Start by replacing the character "0" with {count}. The 'count' slice of state is the source of truth here.
   Then, replace the word "even" with a ternary: {if count is even number, then string "even", else string "odd"}.
@@ -46,32 +46,42 @@ STEP 6:
   This click handler needs to use 'setCount' to set the 'count' to be zero again.
 */
 
-import React from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0 */
 
 export default function Counter() {
   /* STEP 1 */
+  //set state for count and set the usestate to the initial value of 0
+  const [count, setCount] = useState(0)
 
   const increment = () => {
     /* STEP 4 */
+    setCount( count + 1 )
   };
   const decrement = () => {
     /* STEP 5 */
+    setCount ( count - 1)
   };
   const reset = () => {
     /* STEP 6 */
+    //set to the initial state of 0
+    setCount(0)
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: count % 2 === 0? 'royalblue': 'crimson' , /* STEP 2 */
+    //if count is even set to royal blue else set to crimson
+    // % 2 === 0. will divide count variable by 2 and see if the remainder is equal to 0, indicating count is an even number
+    // % is used to find remainders
   };
 
   return (
     <div className='widget-counter container'>
       <h2>Counter</h2>
       <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
+        Number {count} is even {count % 2 === 0 ? 'even': 'odd'}
+  {/*if count is an even number, the string "even" else string "odd"*/}
       </div>
       <div>
         <button id='increment' onClick={increment}>Increment</button>
